@@ -10,7 +10,7 @@ class App extends Component {
     filter: '',
   };
 
-  addContact = (name, number) => {
+  addContact = ({ name, number }) => {
     this.setState(prevState => {
       if (prevState.contacts.find(contact => contact.name === name)) {
         alert(`${name} is already in the contacts`);
@@ -18,11 +18,14 @@ class App extends Component {
       }
 
       return {
-        contacts: prevState.contacts.concat({
-          name,
-          number,
-          id: v4(),
-        }),
+        contacts: [
+          ...prevState.contacts,
+          {
+            name,
+            number,
+            id: v4(),
+          },
+        ],
       };
     });
   };
